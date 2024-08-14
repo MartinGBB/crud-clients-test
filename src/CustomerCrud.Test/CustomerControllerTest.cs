@@ -1,6 +1,8 @@
 using CustomerCrud.Core;
 using CustomerCrud.Repositories;
 using CustomerCrud.Requests;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 
 namespace CustomerCrud.Test;
 
@@ -25,7 +27,15 @@ public class CustomersControllerTest : IClassFixture<WebApplicationFactory<Progr
     [Fact]
     public async Task GetAllTest()
     {
-        throw new NotImplementedException();
+        var customers = AutoFaker.Generate<Customer>(3);
+        _repositoryMock.Setup(x => x.GetAll()).Returns(customers);
+        
+        var response = await _client.GetAsync("/customers");
+        var content = await response.Content.ReadFromJsonAsync<IEnumerable<Customer>>();
+
+        response.StatusCode.Should().Be(HttpStatusCode.OK);
+        content.Should().BeEquivalentTo(customers);
+        _repositoryMock.Verify(r => r.GetAll(), Times.Once);
     }
 
     [Fact]
