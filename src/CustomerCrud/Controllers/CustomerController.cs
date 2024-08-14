@@ -16,4 +16,10 @@ public class CustomerController : ControllerBase
         _customerRepository = customerRepository;
     }
 
+    [HttpGet]
+    public ActionResult GetAll()
+    {
+        var customer = _customerRepository.GetAll();
+        return Ok(customer);
+    }
 }
