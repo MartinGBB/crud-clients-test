@@ -41,7 +41,24 @@ public class CustomersControllerTest : IClassFixture<WebApplicationFactory<Progr
     [Fact]
     public async Task GetByIdTest()
     {
-        throw new NotImplementedException();
+        var customer = AutoFaker.Generate<Customer>();
+        customer.Id = 1;
+
+        _repositoryMock.Setup(x => x.GetById(customer.Id)).Returns(customer);
+
+        var response = await _client.GetAsync($"/customers/{customer.Id}");
+        var content = await response.Content.ReadFromJsonAsync<Customer>();
+
+        response.StatusCode.Should().Be(HttpStatusCode.OK);
+        content.Should().BeEquivalentTo(customer);
+        _repositoryMock.Verify(x => x.GetById(customer.Id), Times.Once);
+
+        // falha
+        var invalidId = 2;
+
+        _repositoryMock.Setup(x => x.GetById(invalidId)).Returns((Customer) null);
+        response = await _client.GetAsync($"/customers/{invalidId}");
+        response.StatusCode.Should().Be(HttpStatusCode.NotFound);
     }
 
     [Fact]
