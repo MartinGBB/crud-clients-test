@@ -22,4 +22,15 @@ public class CustomerController : ControllerBase
         var customer = _customerRepository.GetAll();
         return Ok(customer);
     }
+
+    [HttpGet("{id}")]
+    public ActionResult GetById(int id)
+    {
+        var customer = _customerRepository.GetById(id);
+
+        if (customer == null)
+            return NotFound("Customer not found");
+
+        return Ok(customer);
+    }
 }
