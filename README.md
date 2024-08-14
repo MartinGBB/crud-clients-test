@@ -20,28 +20,28 @@ Os testes cobrem os principais fluxos de operação da API, utilizando mocks par
 ## Executando a Aplicação
 1. Clone o repositório:
     ```
-        git clone git@github.com:MartinGBB/crud-clients-test.git
+    git clone git@github.com:MartinGBB/crud-clients-test.git
     ```
 2. Navegue até o diretório do projeto:
     ```
-        crud-clients-test/src/CustomerCrud
+    crud-clients-test/src/CustomerCrud
     ```
 3. Restaure as dependências:
     ```
-        dotnet restore
+    dotnet restore
     ```
 4. Execute a aplicação:
     ```
-        dotnet run
+    dotnet run
     ```
 
 ## Executando os Testes
 
 1. Navegue até o diretório do projeto:
     ```
-        crud-clients-test/src/CustomerCrud.Test
+    crud-clients-test/src/CustomerCrud.Test
     ```
 2. Para executar os testes, utilize o seguinte comando:
     ```
-        dotnet test
+    dotnet test
     ```
